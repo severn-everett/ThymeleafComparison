@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Bookstore</title>
+    <link th:href="@{/styles/bookstore.css}" rel="stylesheet"/>
+</head>
+<body>
+<div th:insert="~{fragments/general.html :: header}"></div>
+<div id="content">
+    <h2>Welcome to the Test Bookstore</h2>
+    <h3>Our Pages:</h3>
+    <ul>
+        <li>Authors</li>
+        <li>Books</li>
+    </ul>
+</div>
+<div th:insert="~{fragments/general.html :: footer}"></div>
+</body>
+</html>
