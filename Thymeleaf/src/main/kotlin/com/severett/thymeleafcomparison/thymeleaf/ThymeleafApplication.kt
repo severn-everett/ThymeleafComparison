@@ -1,9 +1,13 @@
 package com.severett.thymeleafcomparison.thymeleaf
 
 import org.springframework.boot.SpringApplication
-import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.SpringBootConfiguration
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+import org.springframework.context.annotation.ComponentScan
 
-@SpringBootApplication
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan(value = ["com.severett.thymeleafcomparison.common", "com.severett.thymeleafcomparison.thymeleaf"])
 open class ThymeleafApplication
 
 fun main(args: Array<String>) {

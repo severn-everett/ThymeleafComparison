@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Bookstore</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:insert="~{fragments/general.html :: header(pageName = 'View Author')}"></div>
+<div id="content">
+    <h2 th:text="${author.name}"></h2>
+</div>
+<div th:insert="~{fragments/general.html :: footer}"></div>
+</body>
+</html>
