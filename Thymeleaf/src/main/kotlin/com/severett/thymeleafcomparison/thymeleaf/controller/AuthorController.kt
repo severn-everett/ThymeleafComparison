@@ -4,9 +4,9 @@ import com.severett.thymeleafcomparison.common.service.AuthorService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
-import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
@@ -24,7 +24,7 @@ class AuthorController(private val authorService: AuthorService) {
         return "view_author"
     }
 
-    @DeleteMapping("/{id}")
+    @PostMapping("/{id}/delete")
     fun delete(@PathVariable id: Int): String {
         authorService.delete(id)
         return "redirect:/authors"
