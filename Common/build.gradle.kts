@@ -15,4 +15,5 @@ tasks {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    api("org.springframework.boot:spring-boot-starter-validation")
 }

@@ -1,6 +1,6 @@
 package com.severett.thymeleafcomparison.common.repo
 
-import com.severett.thymeleafcomparison.common.model.Book
+import com.severett.thymeleafcomparison.common.model.db.Book
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.stereotype.Repository
 
