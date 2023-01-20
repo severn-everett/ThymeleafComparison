@@ -44,7 +44,7 @@ class ViewAuthorsPageRenderer(private val authorService: AuthorService) {
                         authors.forEach { author ->
                             li {
                                 form(method = FormMethod.post, action = "/authors/${author.id}/delete") {
-                                    onSubmit = "return confirmDelete('author', '${author.name}')"
+                                    onSubmit = "return confirmDelete('author', '${text(author.name)}')"
                                     a(href = "/authors/${author.id}") { +author.name }
                                     button(type = ButtonType.submit, classes = "btn btn-danger") { +"Delete" }
                                 }

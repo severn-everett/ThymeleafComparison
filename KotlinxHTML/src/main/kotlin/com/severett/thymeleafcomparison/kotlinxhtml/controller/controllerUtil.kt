@@ -1,7 +1,10 @@
 package com.severett.thymeleafcomparison.kotlinxhtml.controller
 
+import org.springframework.http.MediaType
 import org.springframework.validation.FieldError
 import org.springframework.validation.ObjectError
+
+const val TEXT_HTML = MediaType.TEXT_HTML_VALUE
 
 fun List<ObjectError>.toFieldErrorsMap() = mapNotNull { objectError ->
     (objectError as? FieldError)?.let {
