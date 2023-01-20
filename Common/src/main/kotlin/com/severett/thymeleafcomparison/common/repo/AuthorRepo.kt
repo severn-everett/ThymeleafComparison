@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 open class AuthorRepo(private val jdbcTemplate: NamedParameterJdbcTemplate) {
-    private val authorMapper: RowMapper<Author> = RowMapper { rs, _ ->
+    private val authorMapper = RowMapper { rs, _ ->
         Author(id = rs.getInt(Author.ID_FIELD), name = rs.getString(Author.NAME_FIELD))
     }
 
@@ -16,19 +16,16 @@ open class AuthorRepo(private val jdbcTemplate: NamedParameterJdbcTemplate) {
     open fun get(id: Int): Author {
         return jdbcTemplate.queryForObject(
             "SELECT * FROM author WHERE author.id = :id",
-            mapOf("id" to id),
+            mapOf(Author.ID_FIELD to id),
             authorMapper
         )!!
     }
 
     open fun save(author: Author) {
-        jdbcTemplate.update(
-            "INSERT INTO author (name) VALUES :name",
-            mapOf("name" to author.name)
-        )
+        jdbcTemplate.update("INSERT INTO author (name) VALUES :name", mapOf(Author.NAME_FIELD to author.name))
     }
 
     open fun delete(id: Int) {
-        jdbcTemplate.update("DELETE FROM author WHERE author.id = :id", mapOf("id" to id))
+        jdbcTemplate.update("DELETE FROM author WHERE author.id = :id", mapOf(Author.ID_FIELD to id))
     }
 }
