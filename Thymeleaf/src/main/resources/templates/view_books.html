@@ -29,7 +29,7 @@
         </thead>
         <tbody>
         <tr th:each="book : ${books}">
-            <td th:text="${book.title}"></td>
+            <td><a th:href="@{/books/{bookId}(bookId=${book.id})}" th:text="${book.title}"></a></td>
             <td th:text="${book.author.name}"></td>
             <td><button type="submit" th:form="'delete_' + ${book.id}" class="btn btn-danger">Delete</button></td>
         </tr>
