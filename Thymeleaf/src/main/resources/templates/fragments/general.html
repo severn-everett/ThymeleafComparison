@@ -24,6 +24,10 @@
                     <a th:if="${pageName} == 'Authors'" class="nav-link active" href="/authors">Authors</a>
                     <a th:unless="${pageName} == 'Authors'" class="nav-link" href="/authors">Authors</a>
                 </li>
+                <li class="nav-item">
+                    <a th:if="${pageName} == 'Books'" class="nav-link active" href="/books">Books</a>
+                    <a th:unless="${pageName} == 'Books'" class="nav-link" href="/books">Books</a>
+                </li>
             </ul>
         </div>
     </div>
