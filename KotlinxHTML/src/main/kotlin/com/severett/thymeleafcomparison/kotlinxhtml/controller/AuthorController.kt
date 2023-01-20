@@ -1,7 +1,11 @@
 package com.severett.thymeleafcomparison.kotlinxhtml.controller
 
 import com.severett.thymeleafcomparison.common.model.form.AuthorForm
-import com.severett.thymeleafcomparison.kotlinxhtml.render.authors.GetAllPageRenderer
+import com.severett.thymeleafcomparison.common.service.AuthorService
+import com.severett.thymeleafcomparison.kotlinxhtml.render.authors.AddAuthorPageRenderer
+import com.severett.thymeleafcomparison.kotlinxhtml.render.authors.ViewAuthorPageRenderer
+import com.severett.thymeleafcomparison.kotlinxhtml.render.authors.ViewAuthorsPageRenderer
+import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Controller
@@ -17,33 +21,39 @@ private const val TEXT_HTML = MediaType.TEXT_HTML_VALUE
 @Controller
 @RequestMapping("/authors")
 class AuthorController(
-    private val getAllPageRenderer: GetAllPageRenderer
+    private val viewAuthorsPageRenderer: ViewAuthorsPageRenderer,
+    private val viewAuthorPageRenderer: ViewAuthorPageRenderer,
+    private val addAuthorPageRenderer: AddAuthorPageRenderer,
+    private val authorService: AuthorService
 ) {
     @GetMapping(produces = [TEXT_HTML])
     @ResponseBody
-    fun getAll() = getAllPageRenderer.renderPage()
+    fun getAll() = viewAuthorsPageRenderer.renderPage()
 
     @GetMapping(value = ["/{id}"], produces = [TEXT_HTML])
     @ResponseBody
-    fun get(@PathVariable id: Int): String {
-        TODO()
-    }
+    fun get(@PathVariable id: Int) = viewAuthorPageRenderer.renderPage(id)
 
     @GetMapping(value = ["/add"], produces = [TEXT_HTML])
     @ResponseBody
-    fun add(): String {
-        TODO()
-    }
+    fun add(): String = addAuthorPageRenderer.renderPage()
 
     @PostMapping(value = ["/save"], produces = [TEXT_HTML])
     @ResponseBody
-    fun save(@Valid authorForm: AuthorForm, bindingResult: BindingResult): String {
-        TODO()
+    fun save(@Valid authorForm: AuthorForm, bindingResult: BindingResult, httpServletResponse: HttpServletResponse): String {
+        return if (!bindingResult.hasErrors()) {
+            authorService.save(authorForm)
+            httpServletResponse.sendRedirect("/authors")
+            ""
+        } else {
+            val errors = bindingResult.allErrors.toFieldErrorsMap()
+            addAuthorPageRenderer.renderPage(errors)
+        }
     }
 
     @PostMapping(value = ["/{id}/delete"])
-    @ResponseBody
-    fun delete(@PathVariable id: Int): String {
-        TODO()
+    fun delete(@PathVariable id: Int, httpServletResponse: HttpServletResponse) {
+        authorService.delete(id)
+        httpServletResponse.sendRedirect("/authors")
     }
 }

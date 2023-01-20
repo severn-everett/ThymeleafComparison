@@ -25,7 +25,7 @@ import kotlinx.html.ul
 import org.springframework.stereotype.Service
 
 @Service
-class GetAllPageRenderer(private val authorService: AuthorService) {
+class ViewAuthorsPageRenderer(private val authorService: AuthorService) {
     fun renderPage(): String {
         val authors = authorService.getAll()
         return createHTMLDocument().html {
