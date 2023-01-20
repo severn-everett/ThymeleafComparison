@@ -17,10 +17,12 @@
         <div class="collapse navbar-collapse" id="navbarHeader">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a th:if="${pageName} == 'Home'" class="nav-link active" href="/">Home</a>
+                    <a th:unless="${pageName} == 'Home'" class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/authors">Authors</a>
+                    <a th:if="${pageName} == 'Authors'" class="nav-link active" href="/authors">Authors</a>
+                    <a th:unless="${pageName} == 'Authors'" class="nav-link" href="/authors">Authors</a>
                 </li>
             </ul>
         </div>
