@@ -13,8 +13,8 @@
 <div th:insert="~{fragments/general.html :: header(pageName = 'Authors')}"></div>
 <div id="content">
     <h2>Our Books' Authors</h2>
-    <ul th:each="author : ${authors}">
-        <li>
+    <ul>
+        <li th:each="author : ${authors}">
             <form method="post" th:action="@{/authors/{authorId}/delete(authorId=${author.id})}"
                   th:onsubmit="return confirmDelete([[${author.name}]])">
                 <a th:href="@{/authors/{authorId}(authorId=${author.id})}" th:text="${author.name}"></a>
