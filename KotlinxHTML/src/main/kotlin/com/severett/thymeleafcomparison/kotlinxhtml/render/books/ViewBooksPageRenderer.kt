@@ -47,7 +47,7 @@ class ViewBooksPageRenderer(private val bookService: BookService) {
                     books.forEach { book ->
                         form(method = FormMethod.post, action = "/books/${book.id}/delete") {
                             id = "delete_${book.id}"
-                            onSubmit = "return confirmDelete('book', '${text(book.title)}')"
+                            onSubmit = "return confirmDelete('book', \"${book.title}\")"
                         }
                     }
                     table(classes = "table table-striped") {

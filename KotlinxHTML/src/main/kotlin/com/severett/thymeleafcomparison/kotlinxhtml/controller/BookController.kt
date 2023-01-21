@@ -2,6 +2,8 @@ package com.severett.thymeleafcomparison.kotlinxhtml.controller
 
 import com.severett.thymeleafcomparison.common.model.form.BookForm
 import com.severett.thymeleafcomparison.common.service.BookService
+import com.severett.thymeleafcomparison.kotlinxhtml.render.books.AddBookPageRenderer
+import com.severett.thymeleafcomparison.kotlinxhtml.render.books.ViewBookPageRenderer
 import com.severett.thymeleafcomparison.kotlinxhtml.render.books.ViewBooksPageRenderer
 import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody
 @RequestMapping("/books")
 class BookController(
     private val viewBooksPageRenderer: ViewBooksPageRenderer,
+    private val viewBookPageRenderer: ViewBookPageRenderer,
+    private val addBookPageRenderer: AddBookPageRenderer,
     private val bookService: BookService
 ) {
     @GetMapping(produces = [TEXT_HTML])
@@ -25,20 +29,23 @@ class BookController(
 
     @GetMapping(value = ["/{id}"], produces = [TEXT_HTML])
     @ResponseBody
-    fun get(@PathVariable id: Int): String {
-        TODO()
-    }
+    fun get(@PathVariable id: Int) = viewBookPageRenderer.renderPage(id)
 
     @GetMapping(value = ["/add"], produces = [TEXT_HTML])
     @ResponseBody
-    fun add(): String {
-        TODO()
-    }
+    fun add()= addBookPageRenderer.renderPage()
 
     @PostMapping(value = ["/save"], produces = [TEXT_HTML])
     @ResponseBody
     fun save(@Valid bookForm: BookForm, bindingResult: BindingResult, httpServletResponse: HttpServletResponse): String {
-        TODO()
+        return if (!bindingResult.hasErrors()) {
+            bookService.save(bookForm)
+            httpServletResponse.sendRedirect("/books")
+            ""
+        } else {
+            val errors = bindingResult.allErrors.toFieldErrorsMap()
+            addBookPageRenderer.renderPage(errors)
+        }
     }
 
     @PostMapping(value = ["/{id}/delete"])
