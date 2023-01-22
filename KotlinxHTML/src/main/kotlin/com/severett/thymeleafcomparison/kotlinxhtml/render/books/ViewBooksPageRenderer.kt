@@ -1,8 +1,9 @@
 package com.severett.thymeleafcomparison.kotlinxhtml.render.books
 
 import com.severett.thymeleafcomparison.common.service.BookService
-import com.severett.thymeleafcomparison.kotlinxhtml.render.footer
-import com.severett.thymeleafcomparison.kotlinxhtml.render.header
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.footer
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.header
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.writePage
 import kotlinx.html.ButtonType
 import kotlinx.html.FormMethod
 import kotlinx.html.a
@@ -32,7 +33,7 @@ import org.springframework.stereotype.Service
 class ViewBooksPageRenderer(private val bookService: BookService) {
     fun renderPage(): String {
         val books = bookService.getAll()
-        return createHTMLDocument().html {
+        return writePage {
             head {
                 title("Bookstore - View Books")
                 link(href = "/css/bootstrap.min.css", rel = "stylesheet")
@@ -77,6 +78,6 @@ class ViewBooksPageRenderer(private val bookService: BookService) {
                 }
                 footer()
             }
-        }.serialize()
+        }
     }
 }

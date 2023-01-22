@@ -1,20 +1,19 @@
 package com.severett.thymeleafcomparison.kotlinxhtml.render.books
 
 import com.severett.thymeleafcomparison.common.service.AuthorService
-import com.severett.thymeleafcomparison.kotlinxhtml.render.footer
-import com.severett.thymeleafcomparison.kotlinxhtml.render.header
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.footer
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.header
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.writePage
 import kotlinx.html.ButtonType
 import kotlinx.html.FormMethod
 import kotlinx.html.InputType
 import kotlinx.html.body
+import kotlinx.html.br
 import kotlinx.html.button
 import kotlinx.html.div
-import kotlinx.html.dom.createHTMLDocument
-import kotlinx.html.dom.serialize
 import kotlinx.html.form
 import kotlinx.html.h2
 import kotlinx.html.head
-import kotlinx.html.html
 import kotlinx.html.id
 import kotlinx.html.input
 import kotlinx.html.label
@@ -24,6 +23,7 @@ import kotlinx.html.script
 import kotlinx.html.select
 import kotlinx.html.small
 import kotlinx.html.strong
+import kotlinx.html.style
 import kotlinx.html.title
 import org.springframework.stereotype.Service
 
@@ -31,7 +31,7 @@ import org.springframework.stereotype.Service
 class AddBookPageRenderer(private val authorService: AuthorService) {
     fun renderPage(errors: Map<String, String>? = null): String {
         val authors = authorService.getAll()
-        return createHTMLDocument().html {
+        return writePage {
             head {
                 title("Bookstore - View Book")
                 link(href = "/css/bootstrap.min.css", rel = "stylesheet")
@@ -53,10 +53,12 @@ class AddBookPageRenderer(private val authorService: AuthorService) {
                             +"Must not be left blank"
                         }
                         errors?.get("title")?.let {  titleError -> strong(classes = "text-danger") { +titleError } }
+                        br
                         label { +"Author"; htmlFor = "inputAuthor" }
                         select {
                             id = "inputAuthor"
                             name = "authorId"
+                            style = "margin-left: 0.25em;"
                             authors.forEach { author ->
                                 option { value = author.id.toString(); +author.name }
                             }
@@ -66,6 +68,6 @@ class AddBookPageRenderer(private val authorService: AuthorService) {
                 }
                 footer()
             }
-        }.serialize()
+        }
     }
 }

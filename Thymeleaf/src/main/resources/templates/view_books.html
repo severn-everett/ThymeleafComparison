@@ -14,11 +14,10 @@
 <div th:insert="~{fragments/general.html :: header(pageName = 'Books')}"></div>
 <div id="content">
     <h2>Our Books</h2>
-    <div th:each="book: ${books}">
-        <form th:id="'delete_' + ${book.id}" method="post" th:action="@{/books/{bookId}/delete(bookId=${book.id})}"
-              th:onsubmit="return confirmDelete([[${book.title}]])">
-        </form>
-    </div>
+    <form th:each="book: ${books}" th:id="'delete_' + ${book.id}" method="post"
+          th:action="@{/books/{bookId}/delete(bookId=${book.id})}"
+          th:onsubmit="return confirmDelete([[${book.title}]])">
+    </form>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -31,7 +30,9 @@
         <tr th:each="book : ${books}">
             <td><a th:href="@{/books/{bookId}(bookId=${book.id})}" th:text="${book.title}"></a></td>
             <td th:text="${book.author.name}"></td>
-            <td><button type="submit" th:form="'delete_' + ${book.id}" class="btn btn-danger">Delete</button></td>
+            <td>
+                <button type="submit" th:form="'delete_' + ${book.id}" class="btn btn-danger">Delete</button>
+            </td>
         </tr>
         </tbody>
     </table>

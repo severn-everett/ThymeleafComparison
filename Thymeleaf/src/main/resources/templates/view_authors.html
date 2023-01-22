@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Bookstore - View Authors</title>
@@ -16,7 +17,7 @@
     <ul>
         <li th:each="author : ${authors}">
             <form method="post" th:action="@{/authors/{authorId}/delete(authorId=${author.id})}"
-                  th:onsubmit="return confirmDelete([[${author.name}]])">
+                  style="margin-block-end: 1em;" th:onsubmit="return confirmDelete([[${author.name}]])">
                 <a th:href="@{/authors/{authorId}(authorId=${author.id})}" th:text="${author.name}"></a>
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>

@@ -1,15 +1,13 @@
 package com.severett.thymeleafcomparison.kotlinxhtml.render.authors
 
 import com.severett.thymeleafcomparison.common.service.AuthorService
-import com.severett.thymeleafcomparison.kotlinxhtml.render.footer
-import com.severett.thymeleafcomparison.kotlinxhtml.render.header
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.footer
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.header
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.writePage
 import kotlinx.html.body
 import kotlinx.html.div
-import kotlinx.html.dom.createHTMLDocument
-import kotlinx.html.dom.serialize
 import kotlinx.html.h2
 import kotlinx.html.head
-import kotlinx.html.html
 import kotlinx.html.id
 import kotlinx.html.link
 import kotlinx.html.script
@@ -20,7 +18,7 @@ import org.springframework.stereotype.Service
 class ViewAuthorPageRenderer(private val authorService: AuthorService) {
     fun renderPage(authorId: Int): String {
         val author = authorService.get(authorId)
-        return createHTMLDocument().html {
+        return writePage {
             head {
                 title("Bookstore - View Author")
                 link(href = "/css/bootstrap.min.css", rel = "stylesheet")
@@ -34,6 +32,6 @@ class ViewAuthorPageRenderer(private val authorService: AuthorService) {
                 }
                 footer()
             }
-        }.serialize()
+        }
     }
 }

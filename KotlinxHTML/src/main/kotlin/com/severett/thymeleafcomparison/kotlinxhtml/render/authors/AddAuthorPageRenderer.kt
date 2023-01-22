@@ -1,19 +1,17 @@
 package com.severett.thymeleafcomparison.kotlinxhtml.render.authors
 
-import com.severett.thymeleafcomparison.kotlinxhtml.render.footer
-import com.severett.thymeleafcomparison.kotlinxhtml.render.header
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.footer
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.header
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.writePage
 import kotlinx.html.ButtonType
 import kotlinx.html.FormMethod
 import kotlinx.html.InputType
 import kotlinx.html.body
 import kotlinx.html.button
 import kotlinx.html.div
-import kotlinx.html.dom.createHTMLDocument
-import kotlinx.html.dom.serialize
 import kotlinx.html.form
 import kotlinx.html.h2
 import kotlinx.html.head
-import kotlinx.html.html
 import kotlinx.html.id
 import kotlinx.html.input
 import kotlinx.html.label
@@ -27,7 +25,7 @@ import org.springframework.stereotype.Service
 @Service
 class AddAuthorPageRenderer {
     fun renderPage(errors: Map<String, String>? = null): String {
-        return createHTMLDocument().html {
+        return writePage {
             head {
                 title("Bookstore - Add Author")
                 link(href = "/css/bootstrap.min.css", rel = "stylesheet")
@@ -54,6 +52,6 @@ class AddAuthorPageRenderer {
                 }
                 footer()
             }
-        }.serialize()
+        }
     }
 }

@@ -1,16 +1,14 @@
 package com.severett.thymeleafcomparison.kotlinxhtml.render.books
 
 import com.severett.thymeleafcomparison.common.service.BookService
-import com.severett.thymeleafcomparison.kotlinxhtml.render.footer
-import com.severett.thymeleafcomparison.kotlinxhtml.render.header
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.footer
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.header
+import com.severett.thymeleafcomparison.kotlinxhtml.render.common.writePage
 import kotlinx.html.body
 import kotlinx.html.div
-import kotlinx.html.dom.createHTMLDocument
-import kotlinx.html.dom.serialize
 import kotlinx.html.h2
 import kotlinx.html.h4
 import kotlinx.html.head
-import kotlinx.html.html
 import kotlinx.html.id
 import kotlinx.html.link
 import kotlinx.html.script
@@ -21,7 +19,7 @@ import org.springframework.stereotype.Service
 class ViewBookPageRenderer(private val bookService: BookService) {
     fun renderPage(bookId: Int): String {
         val book = bookService.get(bookId)
-        return createHTMLDocument().html {
+        return writePage {
             head {
                 title("Bookstore - View Book")
                 link(href = "/css/bootstrap.min.css", rel = "stylesheet")
@@ -36,6 +34,6 @@ class ViewBookPageRenderer(private val bookService: BookService) {
                 }
                 footer()
             }
-        }.serialize()
+        }
     }
 }
