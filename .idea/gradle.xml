@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Common" />
+            <option value="$PROJECT_DIR$/KotlinScripting" />
             <option value="$PROJECT_DIR$/KotlinxHTML" />
             <option value="$PROJECT_DIR$/Thymeleaf" />
           </set>
