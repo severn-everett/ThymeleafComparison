@@ -11,7 +11,7 @@ import kotlinx.html.link
 import kotlinx.html.script
 import kotlinx.html.title
 
-val book = arguments["book"] as Book
+val book = model["book"] as Book
 
 writePage {
     head {

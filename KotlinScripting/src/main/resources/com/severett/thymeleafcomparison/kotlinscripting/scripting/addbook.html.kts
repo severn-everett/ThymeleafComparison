@@ -23,8 +23,8 @@ import kotlinx.html.strong
 import kotlinx.html.style
 import kotlinx.html.title
 
-val authors = arguments["authors"] as List<Author>
-val errors = arguments["errors"] as? Map<String, String>
+val authors = model["authors"] as List<Author>
+val errors = model["errors"] as? Map<String, String>
 
 writePage {
     head {

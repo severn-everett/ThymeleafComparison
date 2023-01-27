@@ -22,7 +22,7 @@ import kotlinx.html.thead
 import kotlinx.html.title
 import kotlinx.html.tr
 
-val books = arguments["books"] as? List<Book> ?: emptyList()
+val books = model["books"] as? List<Book> ?: emptyList()
 
 writePage {
     head {

@@ -22,12 +22,7 @@ class ScriptExecutor {
 
     fun executeScript(scriptName: String, arguments: Map<String, Any?> = emptyMap()): String {
         val file = File(Thread.currentThread().contextClassLoader.getResource(scriptName)!!.toURI())
-        val evaluationConfiguration = ScriptEvaluationConfiguration {
-            constructorArgs(arguments)
-            jvm {
-                mainArguments(arrayOf("FOO", "BAR"))
-            }
-        }
+        val evaluationConfiguration = ScriptEvaluationConfiguration { constructorArgs(arguments) }
         val response = scriptingHost.eval(file.toScriptSource(), compilationConfiguration, evaluationConfiguration)
         response.reports.asSequence()
             .filter { it.severity == ScriptDiagnostic.Severity.ERROR }

@@ -10,16 +10,13 @@ import kotlin.script.experimental.jvm.jvmTarget
     fileExtension = "html.kts",
     compilationConfiguration = HtmlScriptCompilationConfiguration::class
 )
-abstract class HtmlScript(@Suppress("unused") val arguments: Map<String, Any?>)
+abstract class HtmlScript(@Suppress("unused") val model: Map<String, Any?>)
 
 object HtmlScriptCompilationConfiguration : ScriptCompilationConfiguration(
     {
         jvm {
             jvmTarget("19")
-            dependenciesFromCurrentContext(
-                "main",
-                "kotlinx-html-jvm-0.8.0",
-            )
+            dependenciesFromCurrentContext("main", "kotlinx-html-jvm-0.8.0")
         }
     }
 )
