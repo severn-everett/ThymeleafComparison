@@ -19,7 +19,7 @@ import kotlinx.html.style
 import kotlinx.html.title
 import kotlinx.html.ul
 
-val authors: List<Author> = arguments["authors"] as? List<Author> ?: emptyList()
+val authors = arguments["authors"] as List<Author>
 
 writePage {
     head {

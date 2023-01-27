@@ -1,7 +1,8 @@
 package com.severett.thymeleafcomparison.kotlinscripting.controller
 
-import com.severett.thymeleafcomparison.common.model.form.AuthorForm
+import com.severett.thymeleafcomparison.common.model.form.BookForm
 import com.severett.thymeleafcomparison.common.service.AuthorService
+import com.severett.thymeleafcomparison.common.service.BookService
 import com.severett.thymeleafcomparison.kotlinscripting.scripting.ScriptExecutor
 import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
@@ -14,14 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
-@RequestMapping("/authors")
-class AuthorController(private val authorService: AuthorService, private val scriptExecutor: ScriptExecutor) {
+@RequestMapping("/books")
+class BookController(
+    private val authorService: AuthorService,
+    private val bookService: BookService,
+    private val scriptExecutor: ScriptExecutor
+) {
     @GetMapping(produces = [TEXT_HTML])
     @ResponseBody
     fun getAll(): String {
         return scriptExecutor.executeScript(
-            "$SCRIPT_LOCATION/viewauthors.html.kts",
-            mapOf("authors" to authorService.getAll())
+            "$SCRIPT_LOCATION/viewbooks.html.kts",
+            mapOf("books" to bookService.getAll())
         )
     }
 
@@ -29,37 +34,43 @@ class AuthorController(private val authorService: AuthorService, private val scr
     @ResponseBody
     fun get(@PathVariable id: Int): String {
         return scriptExecutor.executeScript(
-            "$SCRIPT_LOCATION/viewauthor.html.kts",
-            mapOf("author" to authorService.get(id))
+            "$SCRIPT_LOCATION/viewbook.html.kts",
+            mapOf("book" to bookService.get(id))
         )
     }
 
     @GetMapping(value = ["/add"], produces = [TEXT_HTML])
     @ResponseBody
-    fun add() = scriptExecutor.executeScript("$SCRIPT_LOCATION/addauthor.html.kts")
+    fun add(): String {
+        return scriptExecutor.executeScript(
+            "$SCRIPT_LOCATION/addbook.html.kts",
+            mapOf("authors" to authorService.getAll())
+        )
+    }
 
     @PostMapping(value = ["/save"], produces = [TEXT_HTML])
     @ResponseBody
     fun save(
-        @Valid authorForm: AuthorForm,
+        @Valid bookForm: BookForm,
         bindingResult: BindingResult,
         httpServletResponse: HttpServletResponse
     ): String {
         return if (!bindingResult.hasErrors()) {
-            authorService.save(authorForm)
-            httpServletResponse.sendRedirect("/authors")
+            bookService.save(bookForm)
+            httpServletResponse.sendRedirect("/books")
             ""
         } else {
+            val errors = bindingResult.allErrors.toFieldErrorsMap()
             scriptExecutor.executeScript(
-                "$SCRIPT_LOCATION/addauthor.html.kts",
-                mapOf("errors" to bindingResult.allErrors.toFieldErrorsMap())
+                "$SCRIPT_LOCATION/addbook.html.kts",
+                mapOf("authors" to authorService.getAll(), "errors" to errors)
             )
         }
     }
 
     @PostMapping(value = ["/{id}/delete"])
     fun delete(@PathVariable id: Int, httpServletResponse: HttpServletResponse) {
-        authorService.delete(id)
-        httpServletResponse.sendRedirect("/authors")
+        bookService.delete(id)
+        httpServletResponse.sendRedirect("/books")
     }
 }

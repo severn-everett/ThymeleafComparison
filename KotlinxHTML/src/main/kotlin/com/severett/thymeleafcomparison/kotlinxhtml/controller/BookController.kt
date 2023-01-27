@@ -33,11 +33,15 @@ class BookController(
 
     @GetMapping(value = ["/add"], produces = [TEXT_HTML])
     @ResponseBody
-    fun add()= addBookPageRenderer.renderPage()
+    fun add() = addBookPageRenderer.renderPage()
 
     @PostMapping(value = ["/save"], produces = [TEXT_HTML])
     @ResponseBody
-    fun save(@Valid bookForm: BookForm, bindingResult: BindingResult, httpServletResponse: HttpServletResponse): String {
+    fun save(
+        @Valid bookForm: BookForm,
+        bindingResult: BindingResult,
+        httpServletResponse: HttpServletResponse
+    ): String {
         return if (!bindingResult.hasErrors()) {
             bookService.save(bookForm)
             httpServletResponse.sendRedirect("/books")
