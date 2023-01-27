@@ -2,6 +2,9 @@ package com.severett.thymeleafcomparison.kotlinscripting.controller
 
 import com.severett.thymeleafcomparison.common.model.form.AuthorForm
 import com.severett.thymeleafcomparison.common.service.AuthorService
+import com.severett.thymeleafcomparison.kotlinscripting.scripting.AUTHOR
+import com.severett.thymeleafcomparison.kotlinscripting.scripting.AUTHORS
+import com.severett.thymeleafcomparison.kotlinscripting.scripting.ERRORS
 import com.severett.thymeleafcomparison.kotlinscripting.scripting.ScriptExecutor
 import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
@@ -21,7 +24,7 @@ class AuthorController(private val authorService: AuthorService, private val scr
     fun getAll(): String {
         return scriptExecutor.executeScript(
             "$SCRIPT_LOCATION/viewauthors.html.kts",
-            mapOf("authors" to authorService.getAll())
+            mapOf(AUTHORS to authorService.getAll())
         )
     }
 
@@ -30,7 +33,7 @@ class AuthorController(private val authorService: AuthorService, private val scr
     fun get(@PathVariable id: Int): String {
         return scriptExecutor.executeScript(
             "$SCRIPT_LOCATION/viewauthor.html.kts",
-            mapOf("author" to authorService.get(id))
+            mapOf(AUTHOR to authorService.get(id))
         )
     }
 
@@ -52,7 +55,7 @@ class AuthorController(private val authorService: AuthorService, private val scr
         } else {
             scriptExecutor.executeScript(
                 "$SCRIPT_LOCATION/addauthor.html.kts",
-                mapOf("errors" to bindingResult.allErrors.toFieldErrorsMap())
+                mapOf(ERRORS to bindingResult.allErrors.toFieldErrorsMap())
             )
         }
     }

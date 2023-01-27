@@ -1,5 +1,6 @@
 package com.severett.thymeleafcomparison.kotlinscripting.controller
 
+import com.severett.thymeleafcomparison.kotlinscripting.scripting.STATUS
 import com.severett.thymeleafcomparison.kotlinscripting.scripting.ScriptExecutor
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.boot.web.servlet.error.ErrorController
@@ -15,7 +16,7 @@ class BookstoreErrorController(private val scriptExecutor: ScriptExecutor) : Err
         val statusCode = request.getAttribute("jakarta.servlet.error.status_code") as? Int
         return scriptExecutor.executeScript(
             "$SCRIPT_LOCATION/error.html.kts",
-            mapOf("status" to statusCode)
+            mapOf(STATUS to statusCode)
         )
     }
 }

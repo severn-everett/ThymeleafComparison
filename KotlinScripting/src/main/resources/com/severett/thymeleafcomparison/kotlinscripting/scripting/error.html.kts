@@ -8,7 +8,7 @@ import kotlinx.html.p
 import kotlinx.html.script
 import kotlinx.html.title
 
-val status = model["status"] ?: "N/A"
+val status = model[STATUS] ?: "N/A"
 
 writePage {
     head {

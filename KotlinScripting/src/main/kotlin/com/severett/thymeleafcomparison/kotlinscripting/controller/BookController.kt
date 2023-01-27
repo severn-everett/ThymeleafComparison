@@ -3,6 +3,10 @@ package com.severett.thymeleafcomparison.kotlinscripting.controller
 import com.severett.thymeleafcomparison.common.model.form.BookForm
 import com.severett.thymeleafcomparison.common.service.AuthorService
 import com.severett.thymeleafcomparison.common.service.BookService
+import com.severett.thymeleafcomparison.kotlinscripting.scripting.AUTHORS
+import com.severett.thymeleafcomparison.kotlinscripting.scripting.BOOK
+import com.severett.thymeleafcomparison.kotlinscripting.scripting.BOOKS
+import com.severett.thymeleafcomparison.kotlinscripting.scripting.ERRORS
 import com.severett.thymeleafcomparison.kotlinscripting.scripting.ScriptExecutor
 import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
@@ -26,7 +30,7 @@ class BookController(
     fun getAll(): String {
         return scriptExecutor.executeScript(
             "$SCRIPT_LOCATION/viewbooks.html.kts",
-            mapOf("books" to bookService.getAll())
+            mapOf(BOOKS to bookService.getAll())
         )
     }
 
@@ -35,7 +39,7 @@ class BookController(
     fun get(@PathVariable id: Int): String {
         return scriptExecutor.executeScript(
             "$SCRIPT_LOCATION/viewbook.html.kts",
-            mapOf("book" to bookService.get(id))
+            mapOf(BOOK to bookService.get(id))
         )
     }
 
@@ -44,7 +48,7 @@ class BookController(
     fun add(): String {
         return scriptExecutor.executeScript(
             "$SCRIPT_LOCATION/addbook.html.kts",
-            mapOf("authors" to authorService.getAll())
+            mapOf(AUTHORS to authorService.getAll())
         )
     }
 
@@ -63,7 +67,7 @@ class BookController(
             val errors = bindingResult.allErrors.toFieldErrorsMap()
             scriptExecutor.executeScript(
                 "$SCRIPT_LOCATION/addbook.html.kts",
-                mapOf("authors" to authorService.getAll(), "errors" to errors)
+                mapOf(AUTHORS to authorService.getAll(), ERRORS to errors)
             )
         }
     }

@@ -18,7 +18,7 @@ import kotlinx.html.small
 import kotlinx.html.strong
 import kotlinx.html.title
 
-val errors = model["errors"] as? Map<String, String>
+val errors = model[ERRORS] as? Map<String, String>
 
 writePage {
     head {

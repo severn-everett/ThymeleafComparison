@@ -10,7 +10,7 @@ import kotlinx.html.link
 import kotlinx.html.script
 import kotlinx.html.title
 
-val author = model["author"] as Author
+val author = model[AUTHOR] as Author
 
 writePage {
     head {

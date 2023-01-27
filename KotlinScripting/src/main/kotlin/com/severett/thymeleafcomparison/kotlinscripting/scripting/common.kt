@@ -19,6 +19,13 @@ import kotlinx.html.span
 import kotlinx.html.ul
 import kotlinx.html.visit
 
+const val AUTHORS = "authors"
+const val AUTHOR = "author"
+const val BOOKS = "books"
+const val BOOK = "book"
+const val ERRORS = "errors"
+const val STATUS = "status"
+
 inline fun writePage(crossinline block : HTML.() -> Unit): String {
     return createHTMLDocument().html {
         lang = "en"

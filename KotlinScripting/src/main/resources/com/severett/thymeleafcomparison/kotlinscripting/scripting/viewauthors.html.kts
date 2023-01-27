@@ -19,7 +19,7 @@ import kotlinx.html.style
 import kotlinx.html.title
 import kotlinx.html.ul
 
-val authors = model["authors"] as List<Author>
+val authors = model[AUTHORS] as List<Author>
 
 writePage {
     head {
