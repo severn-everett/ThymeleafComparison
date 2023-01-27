@@ -5,6 +5,7 @@ import org.springframework.validation.FieldError
 import org.springframework.validation.ObjectError
 
 const val TEXT_HTML = MediaType.TEXT_HTML_VALUE
+const val SCRIPT_LOCATION = "com/severett/thymeleafcomparison/kotlinscripting/scripting"
 
 fun List<ObjectError>.toFieldErrorsMap() = mapNotNull { objectError ->
     (objectError as? FieldError)?.let {

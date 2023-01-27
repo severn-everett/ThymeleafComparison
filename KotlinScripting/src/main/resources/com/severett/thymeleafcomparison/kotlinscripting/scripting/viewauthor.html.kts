@@ -1,25 +1,29 @@
 package com.severett.thymeleafcomparison.kotlinscripting.scripting
 
+import com.severett.thymeleafcomparison.common.model.db.Author
 import kotlinx.html.body
+import kotlinx.html.div
 import kotlinx.html.h2
 import kotlinx.html.head
+import kotlinx.html.id
 import kotlinx.html.link
-import kotlinx.html.p
 import kotlinx.html.script
 import kotlinx.html.title
 
-val status = arguments["status"] ?: "N/A"
+val author = arguments["author"] as Author
 
 writePage {
     head {
-        title("Bookstore - Add Author")
+        title("Bookstore - View Author")
         link(href = "/css/bootstrap.min.css", rel = "stylesheet")
         script(src = "/js/bootstrap.min.js") {}
     }
     body {
-        header("Error")
-        h2 { +"Oops!" }
-        p { +"An error occurred and provided the status $status" }
+        header("View Author")
+        div {
+            id = "content"
+            h2 { +author.name }
+        }
         footer()
     }
 }

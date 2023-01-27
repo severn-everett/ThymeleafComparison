@@ -12,9 +12,9 @@ class BookstoreErrorController(private val scriptExecutor: ScriptExecutor) : Err
     @RequestMapping("/error", produces = [TEXT_HTML])
     @ResponseBody
     fun handleError(request: HttpServletRequest): String {
-        val statusCode = request.getAttribute("jakarta.servlet.error.status_code") as Int
+        val statusCode = request.getAttribute("jakarta.servlet.error.status_code") as? Int
         return scriptExecutor.executeScript(
-            "com/severett/thymeleafcomparison/kotlinscripting/scripting/home.html.kts",
+            "$SCRIPT_LOCATION/error.html.kts",
             mapOf("status" to statusCode)
         )
     }
