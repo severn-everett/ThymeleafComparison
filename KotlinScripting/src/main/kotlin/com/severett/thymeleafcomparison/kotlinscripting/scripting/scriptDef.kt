@@ -15,8 +15,10 @@ abstract class HtmlScript(@Suppress("unused") val model: Map<String, Any?>)
 object HtmlScriptCompilationConfiguration : ScriptCompilationConfiguration(
     {
         jvm {
-            jvmTarget("19")
-            dependenciesFromCurrentContext("main", "kotlinx-html-jvm-0.8.0")
+            jvmTarget("21")
+            dependenciesFromCurrentContext("main", "kotlinx-html-jvm-0.11.0")
         }
     }
-)
+) {
+    private fun readResolve(): Any = HtmlScriptCompilationConfiguration
+}

@@ -1,5 +1,3 @@
-import org.springframework.boot.gradle.tasks.bundling.BootJar
-
 group = "com.severett"
 version = "1.0-SNAPSHOT"
 
@@ -8,7 +6,7 @@ repositories {
 }
 
 tasks {
-    withType<BootJar> {
+    bootJar {
         enabled = false
     }
 }
