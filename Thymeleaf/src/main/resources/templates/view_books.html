@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <title>Bookstore - View Books</title>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <script th:inline="javascript">
+    <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script data-th-src="@{/js/bootstrap.min.js}"></script>
+    <script data-th-inline="javascript">
         function confirmDelete(title) {
             return window.confirm("Really delete book " + title + "?");
         }
     </script>
 </head>
 <body>
-<div th:insert="~{fragments/general.html :: header(pageName = 'Books')}"></div>
+<div data-th-insert="~{fragments/general.html :: header(pageName = 'Books')}"></div>
 <div id="content">
     <h2>Our Books</h2>
-    <form th:each="book: ${books}" th:id="'delete_' + ${book.id}" method="post"
-          th:action="@{/books/{bookId}/delete(bookId=${book.id})}"
-          th:onsubmit="return confirmDelete([[${book.title}]])">
+    <form data-th-each="book: ${books}" data-th-id="'delete_' + ${book.id}" method="post"
+          data-th-action="@{/books/{bookId}/delete(bookId=${book.id})}"
+          data-th-onsubmit="return confirmDelete([[${book.title}]])">
     </form>
     <table class="table table-striped">
         <thead>
@@ -27,17 +27,17 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="book : ${books}">
-            <td><a th:href="@{/books/{bookId}(bookId=${book.id})}" th:text="${book.title}"></a></td>
-            <td th:text="${book.author.name}"></td>
+        <tr data-th-each="book : ${books}">
+            <td><a data-th-href="@{/books/{bookId}(bookId=${book.id})}" data-th-text="${book.title}"></a></td>
+            <td data-th-text="${book.author.name}"></td>
             <td>
-                <button type="submit" th:form="'delete_' + ${book.id}" class="btn btn-danger">Delete</button>
+                <button type="submit" data-th-form="'delete_' + ${book.id}" class="btn btn-danger">Delete</button>
             </td>
         </tr>
         </tbody>
     </table>
-    <a class="btn btn-primary" th:href="@{/books/add}">Add Book</a>
+    <a class="btn btn-primary" data-th-href="@{/books/add}">Add Book</a>
 </div>
-<div th:insert="~{fragments/general.html :: footer}"></div>
+<div data-th-insert="~{fragments/general.html :: footer}"></div>
 </body>
 </html>
